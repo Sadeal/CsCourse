@@ -1,7 +1,7 @@
 ﻿
 namespace CsCourse
 {
-    partial class Form1
+    partial class Main
     {
         /// <summary>
         /// Обязательная переменная конструктора.
@@ -30,12 +30,44 @@ namespace CsCourse
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
+            this.canvas = new System.Windows.Forms.PictureBox();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            ((System.ComponentModel.ISupportInitialize)(this.canvas)).BeginInit();
+            this.SuspendLayout();
+            // 
+            // canvas
+            // 
+            this.canvas.Location = new System.Drawing.Point(13, 13);
+            this.canvas.Name = "canvas";
+            this.canvas.Size = new System.Drawing.Size(775, 367);
+            this.canvas.TabIndex = 0;
+            this.canvas.TabStop = false;
+            // 
+            // timer1
+            // 
+            this.timer1.Enabled = true;
+            this.timer1.Interval = 40;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
+            // Main
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Text = "Form1";
+            this.Controls.Add(this.canvas);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Name = "Main";
+            this.Text = "Particles";
+            ((System.ComponentModel.ISupportInitialize)(this.canvas)).EndInit();
+            this.ResumeLayout(false);
+
         }
 
         #endregion
+
+        private System.Windows.Forms.PictureBox canvas;
+        private System.Windows.Forms.Timer timer1;
     }
 }
 
