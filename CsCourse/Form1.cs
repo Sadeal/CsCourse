@@ -30,23 +30,46 @@ namespace CsCourse
             }
         }
 
-        int counter = 0;
+        private void UpdateState()
+        {
+            foreach (var particle in particles)
+            {
+                particle._life -= 1;
+                if (particle._life <= 0)
+                {
+                    particle._life = 20 + Particle.rand.Next(100);
+                    particle._x = canvas.Image.Width / 2;
+                    particle._y = canvas.Image.Height / 2;
+                    particle._direction = Particle.rand.Next(360);
+                    particle._speed = 1 + Particle.rand.Next(10);
+                    particle._radius = 2 + Particle.rand.Next(10);
+                }
+                else
+                {
+                    var directionInRadians = particle._direction / 180 * Math.PI;
+                    particle._x += (float)(particle._speed * Math.Cos(directionInRadians));
+                    particle._y -= (float)(particle._speed * Math.Sin(directionInRadians));
+                    particle._life -= 1;
+                }
+            }
+        }
+
+        private void Render(Graphics g)
+        {
+            foreach (var particle in particles)
+            {
+                particle.Draw(g);
+            }
+        }
+
         private void timer1_Tick(object sender, EventArgs e)
         {
-            counter++;
+            UpdateState();
+
             using (var g = Graphics.FromImage(canvas.Image))
             {
                 g.Clear(Color.White);
-                g.DrawString(
-                    counter.ToString(),
-                    new Font("Verdana", 9),
-                    new SolidBrush(Color.Black),
-                    new PointF
-                    { // по центру экрана
-                        X = canvas.Image.Width / 2,
-                        Y = canvas.Image.Height / 2
-                    }
-                );
+                Render(g);
             }
             canvas.Invalidate();
         }
