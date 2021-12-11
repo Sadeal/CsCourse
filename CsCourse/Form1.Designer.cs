@@ -43,6 +43,7 @@ namespace CsCourse
             this.canvas.Size = new System.Drawing.Size(775, 367);
             this.canvas.TabIndex = 0;
             this.canvas.TabStop = false;
+            this.canvas.MouseMove += new System.Windows.Forms.MouseEventHandler(this.canvas_MouseMove);
             // 
             // timer1
             // 

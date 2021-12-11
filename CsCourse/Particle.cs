@@ -13,8 +13,8 @@ namespace CsCourse
         public float _x;
         public float _y;
 
-        public float _direction;
-        public float _speed;
+        public float _speedX;
+        public float _speedY;
         public float _amount; // добавить
         public float _life;
 
@@ -23,8 +23,10 @@ namespace CsCourse
         public Particle()
         {
             _amount = rand.Next(500);
-            _direction = rand.Next(360);
-            _speed = 1 + rand.Next(10);
+            var _direction = (double)rand.Next(360);
+            var _speed = 1 + rand.Next(10);
+            _speedX = (float)(Math.Cos(_direction / 180 * Math.PI) * _speed);
+            _speedY = -(float)(Math.Sin(_direction / 180 * Math.PI) * _speed);
             _radius = 2 + rand.Next(10);
             _life = 20 + rand.Next(100);
         }
