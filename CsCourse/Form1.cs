@@ -16,6 +16,7 @@ namespace CsCourse
         public Main()
         {
             InitializeComponent();
+
             canvas.Image = new Bitmap(canvas.Width, canvas.Height); // привязка изображения
         }
 
@@ -38,5 +39,6 @@ namespace CsCourse
             emitter.MousePositionX = e.X;
             emitter.MousePositionY = e.Y;
         }
+
     }
 }
