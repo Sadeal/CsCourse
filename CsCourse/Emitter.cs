@@ -14,34 +14,6 @@ namespace CsCourse
 
         public int MousePositionX = 0;
         public int MousePositionY = 0;
-        public float GravitationX = 0;
-        public float GravitationY = 1;
-        public int _x; // координата X центра эмиттера, будем ее использовать вместо MousePositionX
-        public int _y; // соответствующая координата Y 
-        public int _direction = 0; // вектор направления в градусах куда сыпет эмиттер
-        public int _spreading = 360; // разброс частиц относительно Direction
-        public int _speedMin = 1; // начальная минимальная скорость движения частицы
-        public int _speedMax = 10; // начальная максимальная скорость движения частицы
-        public int _radiusMin = 2; // минимальный радиус частицы
-        public int _radiusMax = 10; // максимальный радиус частицы
-        public int _lifeMin = 20; // минимальное время жизни частицы
-        public int _lifeMax = 100; // максимальное время жизни частицы
-        public int _particlesPerTick = 1;
-
-        public virtual void ResetParticle(Particle particle)
-        {
-            particle._life = Particle.rand.Next(_lifeMin, _lifeMax);
-            particle._x = rand.Next(0, 775);  // от левого до правого края
-            particle._y = 0; // верх
-
-            var direction = _direction
-                + (double)Particle.rand.Next(_spreading)
-                - _spreading / 2;
-
-            var speed = Particle.rand.Next(_speedMin, _speedMax);
-
-            particle._speedX = (float)(Math.Cos(direction / 180 * Math.PI) * speed);
-            particle._speedY = -(float)(Math.Sin(direction / 180 * Math.PI) * speed);
 
             particle._radius = Particle.rand.Next(_radiusMin, _radiusMax);
         }
@@ -82,12 +54,9 @@ namespace CsCourse
             {
                 if (particles.Count < 500)
                 {
-                    var particle = new ParticleColorful();
-                    particles.Add(particle);
-                    particle.FromColor = Color.Yellow;
-                    particle.ToColor = Color.FromArgb(0, Color.Magenta);
-                    particle._x = rand.Next(0, 775);
-                    particle._y = 0;
+                    var particle = new Particle();
+                    particle._x = MousePositionX;
+                    particle._y = MousePositionY;
                     particles.Add(particle);
                 }
                 else
