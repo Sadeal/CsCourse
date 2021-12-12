@@ -31,8 +31,8 @@ namespace CsCourse
         public virtual void ResetParticle(Particle particle)
         {
             particle._life = Particle.rand.Next(_lifeMin, _lifeMax);
-            particle._x = rand.Next(0, 775);
-            particle._y = 0;
+            particle._x = rand.Next(0, 775);  // от левого до правого края
+            particle._y = 0; // верх
 
             var direction = _direction
                 + (double)Particle.rand.Next(_spreading)
