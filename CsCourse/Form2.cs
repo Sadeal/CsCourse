@@ -20,9 +20,8 @@ namespace CsCourse
             InitializeComponent();
         }
 
-        private void nud1_ValueChanged(object sender, EventArgs e)
+        private void Radbar_Scroll(object sender, EventArgs e)
         {
-            colorCircle.SetRadius((int)nud1.Value);
         }
     }
 }

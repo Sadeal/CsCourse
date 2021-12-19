@@ -12,7 +12,6 @@ namespace CsCourse
 {
     public partial class Main : Form
     {
-        public static List<Particle> _particles = new List<Particle>();
 
         public static ColorCircle colorCircle;
 
@@ -36,6 +35,7 @@ namespace CsCourse
             colorCircle.OnParticleOverlap += (prt) =>
             {
                 (prt as Particle).SetColor(colorCircle._color);
+                (prt as Particle).SetRadius(colorCircle.GetPrtRadius());
             };
         }
 
@@ -59,7 +59,7 @@ namespace CsCourse
                 }
                 */
 
-                foreach (var particle in _particles.ToArray())
+                foreach (var particle in emitter.particles.ToList())
                 {
                     if (colorCircle.OverlapsWith(particle))
                     {
@@ -73,7 +73,7 @@ namespace CsCourse
                 };
 
                 emitter.Render(g);
-                    colorCircle.Draw(g);
+                colorCircle.Draw(g);
             }
 
             canvas.Invalidate();
@@ -89,6 +89,32 @@ namespace CsCourse
         {
             Form2 f2 = new Form2();
             f2.Show();
+        }
+
+        private void trackBar1_Scroll(object sender, EventArgs e)
+        {
+            colorCircle.SetRadius(trackBar1.Value);
+        }
+
+        private void trackBar2_Scroll(object sender, EventArgs e)
+        {
+            colorCircle.SetX(trackBar2.Value);
+        }
+
+        private void trackBar3_Scroll(object sender, EventArgs e)
+        {
+            colorCircle.SetY(trackBar3.Value);
+        }
+
+        private void trackBar4_Scroll(object sender, EventArgs e)
+        {
+            colorCircle.SetPrtRadius(trackBar4.Value);
+        }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            if (colorDialog1.ShowDialog() == DialogResult.OK)
+                colorCircle.SetColor(colorDialog1.Color);
         }
 
         /*

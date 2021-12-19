@@ -10,7 +10,7 @@ namespace CsCourse
 {
     class Emitter
     {
-        List<Particle> particles = new List<Particle>();
+        public List<Particle> particles = new List<Particle>();
 
         Random rand = new Random();
 
@@ -18,8 +18,6 @@ namespace CsCourse
         public int MousePositionY = 0;
         public float GravitationX = 0;
         public float GravitationY = 1;
-        public int _x; // координата X центра эмиттера, будем ее использовать вместо MousePositionX
-        public int _y; // соответствующая координата Y 
         public int _direction = 0; // вектор направления в градусах куда сыпет эмиттер
         public int _spreading = 45; // разброс частиц относительно Direction
         public int _speedMin = 1; // начальная минимальная скорость движения частицы
@@ -67,6 +65,7 @@ namespace CsCourse
                     particle._speedX = (float)(Math.Cos(_direction / 180 * Math.PI) * _speed);
                     particle._speedY = -(float)(Math.Sin(_direction / 180 * Math.PI) * _speed);
                     particle._radius = 2 + Particle.rand.Next(10);
+                    particle._color = Color.Blue; //particle.GetColor();
                     if(particlesToCreate > 0)
                     {
                         particlesToCreate -= 1;
@@ -86,10 +85,8 @@ namespace CsCourse
             {
                 if (particles.Count < 500)
                 {
-                    var particle = new ParticleColorful();
+                    var particle = new Particle();
                     particles.Add(particle);
-                    particle.FromColor = Color.Yellow;
-                    particle.ToColor = Color.FromArgb(0, Color.Magenta);
                     particle._x = rand.Next(0, 775);
                     particle._y = 0;
                     particles.Add(particle);

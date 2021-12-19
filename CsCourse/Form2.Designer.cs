@@ -29,43 +29,41 @@ namespace CsCourse
         /// </summary>
         private void InitializeComponent()
         {
-            this.nud1 = new System.Windows.Forms.NumericUpDown();
             this.label1 = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.nud1)).BeginInit();
+            this.Radbar = new System.Windows.Forms.TrackBar();
+            ((System.ComponentModel.ISupportInitialize)(this.Radbar)).BeginInit();
             this.SuspendLayout();
-            // 
-            // nud1
-            // 
-            this.nud1.Location = new System.Drawing.Point(12, 38);
-            this.nud1.Name = "nud1";
-            this.nud1.Size = new System.Drawing.Size(120, 20);
-            this.nud1.TabIndex = 0;
-            this.nud1.Value = new decimal(new int[] {
-            50,
-            0,
-            0,
-            0});
-            this.nud1.ValueChanged += new System.EventHandler(this.nud1_ValueChanged);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(-1, 9);
+            this.label1.Location = new System.Drawing.Point(9, 9);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(133, 13);
             this.label1.TabIndex = 1;
             this.label1.Text = "Радиус красящего круга";
             // 
+            // Radbar
+            // 
+            this.Radbar.Location = new System.Drawing.Point(12, 25);
+            this.Radbar.Maximum = 500;
+            this.Radbar.Minimum = 10;
+            this.Radbar.Name = "Radbar";
+            this.Radbar.Size = new System.Drawing.Size(130, 45);
+            this.Radbar.TabIndex = 0;
+            this.Radbar.Value = 50;
+            this.Radbar.Scroll += new System.EventHandler(this.Radbar_Scroll);
+            // 
             // Form2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(144, 70);
+            this.ClientSize = new System.Drawing.Size(421, 266);
+            this.Controls.Add(this.Radbar);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.nud1);
             this.Name = "Form2";
             this.Text = "Form2";
-            ((System.ComponentModel.ISupportInitialize)(this.nud1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Radbar)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -73,6 +71,6 @@ namespace CsCourse
 
         #endregion
         private System.Windows.Forms.Label label1;
-        public System.Windows.Forms.NumericUpDown nud1;
+        private System.Windows.Forms.TrackBar Radbar;
     }
 }
