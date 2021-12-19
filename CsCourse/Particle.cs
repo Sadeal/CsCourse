@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Drawing.Drawing2D;
 
 namespace CsCourse
 {
@@ -22,35 +21,6 @@ namespace CsCourse
 
         public static Random rand = new Random();
 
-        public virtual GraphicsPath GetGraphicsPath()
-        {
-            // пока возвращаем пустую форму
-            return new GraphicsPath();
-        }
-
-        public virtual bool Overlaps(Particle obj, Graphics g)
-        {
-            // берем информацию о форме
-            var path1 = this.GetGraphicsPath();
-            var path2 = obj.GetGraphicsPath();
-
-            // используем класс Region, который позволяет определить 
-            // пересечение объектов в данном графическом контексте
-            var region = new Region(path1);
-            region.Intersect(path2); // пересекаем формы
-            return !region.IsEmpty(g); // если полученная форма не пуста то значит было пересечение
-        }
-
-        public Particle()
-        {
-            _amount = rand.Next(500);
-            var _direction = (double)rand.Next(360);
-            var _speed = 1 + rand.Next(10);
-            _speedX = (float)(Math.Cos(_direction / 180 * Math.PI) * _speed);
-            _speedY = -(float)(Math.Sin(_direction / 180 * Math.PI) * _speed);
-            _radius = 2 + rand.Next(10);
-            _life = 20 + rand.Next(100);
-        }
         public virtual void Draw(Graphics g)
         {
             // рассчитываем коэффициент прозрачности по шкале от 0 до 1.0
@@ -65,9 +35,20 @@ namespace CsCourse
 
             SB.Dispose(); // удаление кисти (free spacing)
         }
+
         public void SetColor(Color color)
         {
             _color = color;
+        }
+
+        public float GetX()
+        {
+            return _x;
+        }
+
+        public float GetY()
+        {
+            return _y;
         }
     }
     public class ParticleColorful : Particle
@@ -90,12 +71,13 @@ namespace CsCourse
         public override void Draw(Graphics g)
         {
             float k = Math.Min(1f, _life / 100);
-
+            int alpha = (int)(k * 255);
             // так как k уменьшается от 1 до 0, то порядок цветов обратный
-            var color = Color.Blue;
+            var color = Color.FromArgb(alpha, Color.Blue);
             var SB = new SolidBrush(color);
             g.FillEllipse(SB, _x - _radius, _y - _radius, _radius * 2, _radius * 2);
             SB.Dispose();
         }
+
     }
 }

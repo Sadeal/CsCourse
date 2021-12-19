@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Drawing.Drawing2D;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -11,6 +12,8 @@ namespace CsCourse
     {
         List<Particle> particles = new List<Particle>();
 
+        Random rand = new Random();
+
         public int MousePositionX = 0;
         public int MousePositionY = 0;
         public float GravitationX = 0;
@@ -18,7 +21,7 @@ namespace CsCourse
         public int _x; // координата X центра эмиттера, будем ее использовать вместо MousePositionX
         public int _y; // соответствующая координата Y 
         public int _direction = 0; // вектор направления в градусах куда сыпет эмиттер
-        public int _spreading = 360; // разброс частиц относительно Direction
+        public int _spreading = 45; // разброс частиц относительно Direction
         public int _speedMin = 1; // начальная минимальная скорость движения частицы
         public int _speedMax = 10; // начальная максимальная скорость движения частицы
         public int _radiusMin = 2; // минимальный радиус частицы
@@ -31,8 +34,8 @@ namespace CsCourse
         {
             particle._life = Particle.rand.Next(_lifeMin, _lifeMax);
 
-            particle._x = _x;
-            particle._y = _y;
+            particle._x = rand.Next(0, 775);
+            particle._y = 0;
 
             var direction = _direction
                 + (double)Particle.rand.Next(_spreading)
@@ -50,14 +53,15 @@ namespace CsCourse
         {
             int particlesToCreate = _particlesPerTick;
 
+
             foreach (var particle in particles)
             {
                 particle._life -= 1;
                 if (particle._life < 0)
                 {
                     particle._life = 20 + Particle.rand.Next(100);
-                    particle._x = MousePositionX;
-                    particle._y = MousePositionY;
+                    particle._x = rand.Next(0, 775);
+                    particle._y = 0;
                     var _direction = (double)Particle.rand.Next(360);
                     var _speed = 1 + Particle.rand.Next(10);
                     particle._speedX = (float)(Math.Cos(_direction / 180 * Math.PI) * _speed);
@@ -86,8 +90,8 @@ namespace CsCourse
                     particles.Add(particle);
                     particle.FromColor = Color.Yellow;
                     particle.ToColor = Color.FromArgb(0, Color.Magenta);
-                    particle._x = MousePositionX;
-                    particle._y = MousePositionY;
+                    particle._x = rand.Next(0, 775);
+                    particle._y = 0;
                     particles.Add(particle);
                 }
                 else
@@ -103,11 +107,13 @@ namespace CsCourse
                 particles.Add(particle);
             }*/
         }
+
         public void Render(Graphics g)
         {
             foreach (var particle in particles)
             {
                 particle.Draw(g);
+
             }
         }
     }
