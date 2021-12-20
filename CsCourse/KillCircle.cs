@@ -83,5 +83,20 @@ namespace CsCourse
         {
             Y = y;
         }
+
+        public int GetRadius()
+        {
+            return Radius;
+        }
+
+        public float GetX()
+        {
+            return X;
+        }
+
+        public float GetY()
+        {
+            return Y;
+        }
     }
 }

@@ -198,6 +198,8 @@ namespace CsCourse
 
         private void canvas_MouseDown(object sender, MouseEventArgs e)
         {
+            double r = Math.Sqrt((e.X - killCircle.GetX()) * (e.X - killCircle.GetX()) + (e.Y - killCircle.GetY()) * (e.Y - killCircle.GetY()));
+
             if (e.Button == MouseButtons.Left)
             {
                 killCircle.SetX(e.X);
@@ -207,7 +209,7 @@ namespace CsCourse
             }
             else
             {
-                if (e.Button == MouseButtons.Right)
+                if ((e.Button == MouseButtons.Right)&&(r <= killCircle.GetRadius()))
                 {
                     killCircle.SetColor(Color.White, Color.White);
                     killCircle.SetRadius(0);
