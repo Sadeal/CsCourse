@@ -60,7 +60,7 @@ namespace CsCourse
                 {
                     particle._life = 20 + Particle.rand.Next(100);
                     particle._x = rand.Next(0, 775);
-                    particle._y = 0;
+                    particle._y = -10;
                     var _speed = 1 + Particle.rand.Next(10);
                     particle._speedX = (float)(Math.Cos(_direction / 180 * Math.PI) * _speed) - 5;
                     particle._speedY = -(float)(Math.Sin(_direction / 180 * Math.PI) * _speed);
