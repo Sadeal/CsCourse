@@ -31,7 +31,7 @@ namespace CsCourse
             var color = Color.FromArgb(alpha, _color);
 
             var SB = new SolidBrush(color);
-            g.FillEllipse(SB, _x - _radius, _y - _radius, _radius * 2, _radius * 2); // залитый круг с фикс. радиусом
+            g.FillEllipse(SB, _x - _radius, _y - _radius, _radius * 2, _radius * 2); // залитый круг
 
             SB.Dispose(); // удаление кисти (free spacing)
         }
@@ -46,11 +46,6 @@ namespace CsCourse
             return _y;
         }
 
-        public Color GetColor()
-        {
-            return _color;
-        }
-
         public float GetSpeedX()
         {
             return _speedX;
@@ -59,6 +54,11 @@ namespace CsCourse
         public float GetSpeedY()
         {
             return _speedY;
+        }
+
+        public Color GetColor()
+        {
+            return _color;
         }
 
         public void SetSpeedX(float speedX)
@@ -79,6 +79,11 @@ namespace CsCourse
         public void SetRadius(decimal radius)
         {
             _radius = (int)radius;
+        }
+
+        public void SetLife(float life)
+        {
+            _life = life;
         }
     }
 }

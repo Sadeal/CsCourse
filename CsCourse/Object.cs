@@ -47,7 +47,7 @@ namespace CsCourse
             float Y2 = particle.GetY();
 
             double r = Math.Sqrt((X2 - X) * (X2 - X) + (Y2 - Y) * (Y2 - Y));
-            return (r < Radius);
+            return (r - 10 < Radius);
         }
 
         public static Random rand = new Random();
@@ -74,6 +74,11 @@ namespace CsCourse
         public float GetY()
         {
             return Y;
+        }
+
+        public Color GetColor()
+        {
+            return _color;
         }
     }
 }

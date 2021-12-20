@@ -59,6 +59,7 @@ namespace CsCourse
             this.canvas.Size = new System.Drawing.Size(775, 367);
             this.canvas.TabIndex = 0;
             this.canvas.TabStop = false;
+            this.canvas.MouseDown += new System.Windows.Forms.MouseEventHandler(this.canvas_MouseDown);
             this.canvas.MouseMove += new System.Windows.Forms.MouseEventHandler(this.canvas_MouseMove);
             this.canvas.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.canvas_MouseWheel);
             // 
@@ -167,7 +168,7 @@ namespace CsCourse
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(391, 401);
+            this.button2.Location = new System.Drawing.Point(332, 383);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(75, 23);
             this.button2.TabIndex = 11;

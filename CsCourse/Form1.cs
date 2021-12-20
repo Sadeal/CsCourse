@@ -15,6 +15,7 @@ namespace CsCourse
 
         public static ColorCircle colorCircle;
         public static Object obj;
+        public static KillCircle killCircle;
 
         public Main()
         {
@@ -22,6 +23,7 @@ namespace CsCourse
             canvas.Image = new Bitmap(canvas.Width, canvas.Height); // привязка изображения
             InitColorCircle();
             InitObject();
+            InitKillCircle();
         }
 
         Emitter emitter = new Emitter();
@@ -74,6 +76,23 @@ namespace CsCourse
                     if (difY < -3) difY = -3;
                     (prt as Particle).SetSpeedY(difY);
                 }
+                    prt.SetColor(obj.GetColor());
+            };
+        }
+
+        public void InitKillCircle()
+        {
+
+            killCircle = new KillCircle(
+                canvas.Image.Width / 2 + canvas.Image.Width / 4,
+                canvas.Image.Height / 2 + canvas.Image.Height / 4,
+                50
+                );
+
+            killCircle.OnParticleOverlap += (prt) =>
+            {
+                prt.SetLife(0);
+                killCircle.SetCount(1);
             };
         }
 
@@ -109,11 +128,17 @@ namespace CsCourse
                     {
                         obj.OverlapParticle(particle);
                     }
+
+                    if (killCircle.OverlapsWith(particle))
+                    {
+                        killCircle.OverlapParticle(particle);
+                    }
                 }
 
                 emitter.Render(g);
                 colorCircle.Draw(g);
                 obj.Draw(g);
+                killCircle.Draw(g);
             }
 
             canvas.Invalidate();
@@ -125,7 +150,7 @@ namespace CsCourse
             obj.MousePositionY = e.Y;
         }
 
-        private void canvas_MouseWheel(object sender, System.Windows.Forms.MouseEventArgs e)
+        private void canvas_MouseWheel(object sender, MouseEventArgs e)
         {
             if (e.Delta > 0) obj.Radius += 5;
             else obj.Radius -= 5;
@@ -168,6 +193,28 @@ namespace CsCourse
             {
                 timer1.Stop();
                 button2.Text = "Start";
+            }
+        }
+
+        private void canvas_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                killCircle.SetX(e.X);
+                killCircle.SetY(e.Y);
+                killCircle.SetColor(Color.Purple, Color.Black);
+                killCircle.SetRadius(50);
+            }
+            else
+            {
+                if (e.Button == MouseButtons.Right)
+                {
+                    killCircle.SetColor(Color.White, Color.White);
+                    killCircle.SetRadius(0);
+                    killCircle.Count = 0;
+                    killCircle.SetX(-10);
+                    killCircle.SetY(-10);
+                }
             }
         }
 
