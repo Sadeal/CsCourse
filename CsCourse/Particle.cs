@@ -36,16 +36,6 @@ namespace CsCourse
             SB.Dispose(); // удаление кисти (free spacing)
         }
 
-        public void SetColor(Color color)
-        {
-            _color = color;
-        }
-
-        public void SetRadius(decimal radius)
-        {
-            _radius = (int)radius;
-        }
-
         public float GetX()
         {
             return _x;
@@ -59,6 +49,36 @@ namespace CsCourse
         public Color GetColor()
         {
             return _color;
+        }
+
+        public float GetSpeedX()
+        {
+            return _speedX;
+        }
+
+        public float GetSpeedY()
+        {
+            return _speedY;
+        }
+
+        public void SetSpeedX(float speedX)
+        {
+            _speedX = speedX;
+        }
+
+        public void SetSpeedY(float speedY)
+        {
+            _speedY = speedY;
+        }
+
+        public void SetColor(Color color)
+        {
+            _color = color;
+        }
+
+        public void SetRadius(decimal radius)
+        {
+            _radius = (int)radius;
         }
     }
 }

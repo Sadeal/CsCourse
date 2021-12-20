@@ -14,12 +14,14 @@ namespace CsCourse
     {
 
         public static ColorCircle colorCircle;
+        public static Object obj;
 
         public Main()
         {
             InitializeComponent();
             canvas.Image = new Bitmap(canvas.Width, canvas.Height); // привязка изображения
             InitColorCircle();
+            InitObject();
         }
 
         Emitter emitter = new Emitter();
@@ -39,9 +41,46 @@ namespace CsCourse
             };
         }
 
+        private void InitObject()
+        {
+            obj = new Object(
+                canvas.Image.Width / 2 - canvas.Image.Width / 4,
+                canvas.Image.Height / 2 + canvas.Image.Height / 4,
+                50
+                );
+
+            obj.OnParticleOverlap += (prt) =>
+            {
+                var difX = prt.GetX() - obj.GetX();
+                var difY = prt.GetY() - obj.GetY();
+                if (obj.GetX() < prt.GetX())
+                {
+                    if (difX > 5) difX = 5;
+                    prt.SetSpeedX(difX);
+                }
+                else
+                {
+                    if (difX < -5) difX = -5;
+                    prt.SetSpeedX(difX);
+                }
+
+                if (obj.GetY() < prt.GetY())
+                {
+                    if (difY > 3) difY = 3;
+                    (prt as Particle).SetSpeedY(difY);
+                }
+                else
+                {
+                    if (difY < -3) difY = -3;
+                    (prt as Particle).SetSpeedY(difY);
+                }
+            };
+        }
+
         private void timer1_Tick(object sender, EventArgs e)
         {
             emitter.UpdateState();
+            obj.UpdateState();
 
             using (var g = Graphics.FromImage(canvas.Image))
             {
@@ -65,15 +104,16 @@ namespace CsCourse
                     {
                         colorCircle.OverlapParticle(particle);
                     }
-                }
 
-                colorCircle.OnParticleOverlap += (prt) =>
-                {
-                    (prt as Particle).SetColor(colorCircle._color);
-                };
+                    if (obj.OverlapsWith(particle))
+                    {
+                        obj.OverlapParticle(particle);
+                    }
+                }
 
                 emitter.Render(g);
                 colorCircle.Draw(g);
+                obj.Draw(g);
             }
 
             canvas.Invalidate();
@@ -81,14 +121,14 @@ namespace CsCourse
 
         private void canvas_MouseMove(object sender, MouseEventArgs e)
         {
-            emitter.MousePositionX = e.X;
-            emitter.MousePositionY = e.Y;
+            obj.MousePositionX = e.X;
+            obj.MousePositionY = e.Y;
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void canvas_MouseWheel(object sender, System.Windows.Forms.MouseEventArgs e)
         {
-            Form2 f2 = new Form2();
-            f2.Show();
+            if (e.Delta > 0) obj.Radius += 5;
+            else obj.Radius -= 5;
         }
 
         private void trackBar1_Scroll(object sender, EventArgs e)
@@ -115,6 +155,20 @@ namespace CsCourse
         {
             if (colorDialog1.ShowDialog() == DialogResult.OK)
                 colorCircle.SetColor(colorDialog1.Color);
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            if (button2.Text == "Start")
+            {
+                timer1.Start();
+                button2.Text = "Stop";
+            }
+            else
+            {
+                timer1.Stop();
+                button2.Text = "Start";
+            }
         }
 
         /*

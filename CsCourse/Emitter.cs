@@ -17,15 +17,16 @@ namespace CsCourse
         public int MousePositionX = 0;
         public int MousePositionY = 0;
         public float GravitationX = 0;
-        public float GravitationY = 1;
-        public int _direction = 0; // вектор направления в градусах куда сыпет эмиттер
-        public int _spreading = 45; // разброс частиц относительно Direction
-        public int _speedMin = 1; // начальная минимальная скорость движения частицы
-        public int _speedMax = 10; // начальная максимальная скорость движения частицы
-        public int _radiusMin = 2; // минимальный радиус частицы
-        public int _radiusMax = 10; // максимальный радиус частицы
-        public int _lifeMin = 20; // минимальное время жизни частицы
-        public int _lifeMax = 100; // максимальное время жизни частицы
+        public float GravitationY = 0.1f;
+        public float _wind = 0f; // ветер
+        public int _direction = 0;
+        public int _spreading = 45;
+        public int _speedMin = 1;
+        public int _speedMax = 2;
+        public int _radiusMin = 2;
+        public int _radiusMax = 10;
+        public int _lifeMin = 20;
+        public int _lifeMax = 100;
         public int _particlesPerTick = 1;
 
         public virtual void ResetParticle(Particle particle)
@@ -60,9 +61,8 @@ namespace CsCourse
                     particle._life = 20 + Particle.rand.Next(100);
                     particle._x = rand.Next(0, 775);
                     particle._y = 0;
-                    var _direction = (double)Particle.rand.Next(360);
                     var _speed = 1 + Particle.rand.Next(10);
-                    particle._speedX = (float)(Math.Cos(_direction / 180 * Math.PI) * _speed);
+                    particle._speedX = (float)(Math.Cos(_direction / 180 * Math.PI) * _speed) - 5;
                     particle._speedY = -(float)(Math.Sin(_direction / 180 * Math.PI) * _speed);
                     particle._radius = 2 + Particle.rand.Next(10);
                     particle._color = Color.Blue; //particle.GetColor();
@@ -74,7 +74,7 @@ namespace CsCourse
                 }
                 else
                 {
-                    particle._speedX += GravitationX;
+                    particle._speedX += (float)(GravitationX + _wind);
                     particle._speedY += GravitationY;
                     particle._x += particle._speedX;
                     particle._y += particle._speedY;
@@ -103,6 +103,7 @@ namespace CsCourse
                 ResetParticle(particle);
                 particles.Add(particle);
             }*/
+
         }
 
         public void Render(Graphics g)
