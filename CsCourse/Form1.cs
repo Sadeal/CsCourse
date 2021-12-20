@@ -29,8 +29,8 @@ namespace CsCourse
         private void InitColorCircle()
         {
             colorCircle = new ColorCircle(
-                canvas.Image.Width / 2 * 1,
-                canvas.Image.Height / 2 * 1,
+                canvas.Image.Width / 2,
+                canvas.Image.Height / 2,
                 50
                 );
 
